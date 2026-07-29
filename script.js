@@ -36,8 +36,16 @@ function sendWhatsAppOrder(event) {
     const address = document.getElementById('pgAddress').value;
     const timePref = document.getElementById('mealPreference').value;
 
-    // Construct the WhatsApp message template
-    const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to place an order from the PG Meal Catalog.\n\n👤 *Name*: ${name}\n📦 *Meal Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\nPlease confirm my order and send payment details (UPI/Cash). Thanks!`;
+    // 1. Create a confirmation template text that the client sends to you (the owner)
+    // 2. We embed an auto-generated confirmation link inside the message.
+    // When the owner receives it, they can tap the link to quickly draft the "CONFIRMED" response back to the client!
+    
+    // Construct the confirmation message link (this will draft a message from Owner back to Client)
+    const replyText = `Hi ${name}, your order for "${plan}" is CONFIRMED for ${timePref}. We will deliver to: ${address}. Please pay via UPI. Thank you!`;
+    const encodedReply = encodeURIComponent(replyText);
+    const quickConfirmLink = `https://wa.me/?text=${encodedReply}`;
+
+    const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to place an order from the PG Meal Catalog.\n\n👤 *Name*: ${name}\n📦 *Meal Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\nPlease confirm my order and send payment details (UPI/Cash). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap link to auto-draft confirmation to this customer):\n${quickConfirmLink}`;
 
     // Encode message for URL
     const encodedMessage = encodeURIComponent(message);
