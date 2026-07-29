@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ghar Jaisa Khana — Delicious home-cooked meals for PG residents, students, and professionals. Fresh Paneer, Daal, Rice, & soft Rotis delivered to your room.">
+    <title>Ghar Jaisa Khana — Daily PG Meals & Subscriptions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">🍳 Ghar Jaisa Khana</div>
+            <p class="tagline">Tired of boring PG food? Taste the comfort of home-cooked meals.</p>
+        </header>
+
+        <!-- Main Card Section -->
+        <div class="main-card">
+            <div class="card-image">
+                <img src="images/thali.jpg" alt="Deluxe North Indian Thali with Paneer, Daal, Rice, and Roti">
+                <div class="badge">🔥 Hot & Fresh Delivery</div>
+            </div>
+            <div class="card-details">
+                <span class="category">TODAY'S SPECIAL THALI</span>
+                <h1 class="meal-title">Deluxe Home Thali</h1>
+                <p class="meal-description">
+                    A perfect, balanced meal prepared in a hygienic home kitchen with less oil and no artificial colors. Exactly what you need after a busy day.
+                </p>
+
+                <!-- What's Inside Grid -->
+                <h3 class="section-subtitle">What's Inside the Thali:</h3>
+                <div class="items-grid">
+                    <div class="item-tag">
+                        <span class="item-icon">🧀</span>
+                        <div>
+                            <h4>Paneer Butter Masala</h4>
+                            <p>Soft fresh paneer in rich tomato-cashew gravy</p>
+                        </div>
+                    </div>
+                    <div class="item-tag">
+                        <span class="item-icon">🍲</span>
+                        <div>
+                            <h4>Yellow Dal Tadka</h4>
+                            <p>Creamy, protein-packed lentil comfort bowl</p>
+                        </div>
+                    </div>
+                    <div class="item-tag">
+                        <span class="item-icon">🍚</span>
+                        <div>
+                            <h4>Jeera Rice</h4>
+                            <p>Fragrant steamed Basmati rice with a touch of cumin</p>
+                        </div>
+                    </div>
+                    <div class="item-tag">
+                        <span class="item-icon">🫓</span>
+                        <div>
+                            <h4>4 Fresh Rotis</h4>
+                            <p>Tawa-hot, soft whole-wheat rotis with light butter</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing & Subscriptions -->
+        <h2 class="section-heading">Choose Your Meal Plan</h2>
+        <div class="pricing-grid">
+            <!-- Single Trial Plan -->
+            <div class="price-card">
+                <h3>Try Once</h3>
+                <p class="card-desc">Perfect to check the taste and quality</p>
+                <div class="price">
+                    <span class="currency">₹</span>
+                    <span class="amount">120</span>
+                    <span class="unit">/meal</span>
+                </div>
+                <ul class="features">
+                    <li>✓ Complete Deluxe Thali</li>
+                    <li>✓ Free Delivery to your PG</li>
+                    <li>✓ Delivered in disposable containers</li>
+                </ul>
+                <button class="btn btn-outline" onclick="openOrderModal('Single Trial Meal (₹120)', 120)">Order Trial Thali</button>
+            </div>
+
+            <!-- Weekly Subscription (Recommended) -->
+            <div class="price-card popular">
+                <span class="popular-tag">MOST POPULAR</span>
+                <h3>Weekly Pack</h3>
+                <p class="card-desc">Lunch or Dinner for 6 Days (Mon - Sat)</p>
+                <div class="price">
+                    <span class="currency">₹</span>
+                    <span class="amount">650</span>
+                    <span class="unit">/week</span>
+                </div>
+                <div class="savings">Save ₹70 over single trials</div>
+                <ul class="features">
+                    <li>✓ 6 Days Delivery (Lunch OR Dinner)</li>
+                    <li>✓ Pause/Resume subscription anytime</li>
+                    <li>✓ Priority timely delivery</li>
+                    <li>✓ Menu rotates daily</li>
+                </ul>
+                <button class="btn btn-primary" onclick="openOrderModal('Weekly Subscription Plan (₹650)', 650)">Subscribe Now</button>
+            </div>
+
+            <!-- Monthly Subscription -->
+            <div class="price-card">
+                <h3>Monthly Saver</h3>
+                <p class="card-desc">Daily Meals for 26 Days (Mon - Sat)</p>
+                <div class="price">
+                    <span class="currency">₹</span>
+                    <span class="amount">2,400</span>
+                    <span class="unit">/month</span>
+                </div>
+                <div class="savings">Save ₹720 (Best value!)</div>
+                <ul class="features">
+                    <li>✓ 26 Days Delivery (Lunch OR Dinner)</li>
+                    <li>✓ Free sweet dish twice a week</li>
+                    <li>✓ Pause/Resume subscription anytime</li>
+                    <li>✓ Cancel anytime with full refund for unused days</li>
+                </ul>
+                <button class="btn btn-outline" onclick="openOrderModal('Monthly Saver Plan (₹2400)', 2400)">Get Monthly Saver</button>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-strip">
+            <div class="trust-item">🧼 Clean & Hygienic Kitchen</div>
+            <div class="trust-item">🛵 On-Time PG Delivery</div>
+            <div class="trust-item">🌾 100% Atta (No Maida)</div>
+        </div>
+
+        <!-- Footer Info -->
+        <footer class="footer">
+            <p>☎️ Need custom catering or group PG discounts? Call / WhatsApp us at <strong>+91 XXXXXXXXXX</strong></p>
+            <p class="copyright">&copy; 2026 Ghar Jaisa Khana. Healthy Home Kitchen.</p>
+        </footer>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Confirm Your Order</h3>
+                <button class="close-btn" onclick="closeOrderModal()">×</button>
+            </div>
+            <form id="orderForm" onsubmit="sendWhatsAppOrder(event)">
+                <input type="hidden" id="selectedPlan">
+                <div class="form-group">
+                    <label for="planDisplay">Selected Plan</label>
+                    <input type="text" id="planDisplay" readonly class="readonly-input">
+                </div>
+                <div class="form-group">
+                    <label for="userName">Your Full Name</label>
+                    <input type="text" id="userName" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-group">
+                    <label for="pgAddress">PG Name / Building Name & Room Number</label>
+                    <textarea id="pgAddress" placeholder="e.g. Room 302, Stanza Living PG, Sector 62, Noida" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mealPreference">Meal Delivery Time</label>
+                    <select id="mealPreference" required>
+                        <option value="Dinner (7:30 PM - 8:30 PM)">Dinner (7:30 PM - 8:30 PM)</option>
+                        <option value="Lunch (1:00 PM - 2:00 PM)">Lunch (1:00 PM - 2:00 PM)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Confirm via WhatsApp 📱</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
