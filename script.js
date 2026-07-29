@@ -3,7 +3,7 @@
    =================================================== */
 
 // Change this to your business WhatsApp number (with country code, e.g. 919876543210)
-const WHATSAPP_NUMBER = "918658129071"; // Edit this line to put your real number
+const WHATSAPP_NUMBER = "918449311016"; // Edit this line to put your real number
 
 const modal = document.getElementById('orderModal');
 const selectedPlanInput = document.getElementById('selectedPlan');
