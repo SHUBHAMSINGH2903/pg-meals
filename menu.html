@@ -325,11 +325,25 @@
 
         .price-chip {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             border-radius: 16px;
-            padding: 20px 28px;
+            padding: 24px 28px;
             text-align: center;
-            min-width: 180px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .price-chip:hover {
+            border-color: rgba(249, 115, 22, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .price-chip.active {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 25px var(--primary-glow) !important;
+            background: rgba(249, 115, 22, 0.05);
         }
 
         .price-chip.featured {
@@ -361,6 +375,126 @@
             color: #22c55e;
             font-weight: 600;
             margin-top: 4px;
+        }
+
+        .chip-btn {
+            margin-top: 14px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 99px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary-light);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .price-chip:hover .chip-btn, .price-chip.active .chip-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(12, 10, 9, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: #1c1917;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            color: #fafaf9;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-2);
+        }
+
+        .close-btn:hover {
+            color: var(--text-1);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-1);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-family: var(--font);
+            font-size: 0.9rem;
+            color: var(--text-1);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .readonly-input {
+            background-color: rgba(234, 88, 12, 0.15) !important;
+            color: var(--primary-light) !important;
+            font-weight: 700 !important;
+            border-color: transparent !important;
         }
 
         /* Footer */
@@ -686,31 +820,67 @@
 
         <!-- CTA & Pricing -->
         <section class="cta-section">
-            <h2>Subscribe Now & Never Miss Dinner</h2>
-            <p>Serving: Kammanahalli, Kalyan Nagar, HRBR Layout & Horamavu</p>
+            <h2>Select Your Dinner Plan</h2>
+            <p>Click on any plan below to select & subscribe</p>
 
-            <div class="pricing-strip">
-                <div class="price-chip">
+            <div class="pricing-strip" id="pricingStrip">
+                <div class="price-chip" onclick="selectPlan(this, 'Single Trial Meal (₹120)', 120)">
                     <h4>Single Meal</h4>
                     <div class="price">&#8377;120<span>/meal</span></div>
+                    <button class="chip-btn">Select Plan</button>
                 </div>
-                <div class="price-chip featured">
+                <div class="price-chip featured active" onclick="selectPlan(this, 'Weekly Subscription Plan (₹650)', 650)">
                     <h4>Weekly (6 Days)</h4>
                     <div class="price">&#8377;650<span>/week</span></div>
                     <div class="save">Save &#8377;70!</div>
+                    <button class="chip-btn">Select Plan</button>
                 </div>
-                <div class="price-chip">
+                <div class="price-chip" onclick="selectPlan(this, 'Monthly Saver Plan (₹2,400)', 2400)">
                     <h4>Monthly (26 Days)</h4>
                     <div class="price">&#8377;2,400<span>/mo</span></div>
                     <div class="save">Save &#8377;720!</div>
+                    <button class="chip-btn">Select Plan</button>
                 </div>
             </div>
 
-            <div class="cta-buttons" style="margin-top: 32px;">
-                <a href="https://wa.me/918449311016?text=Hi%20Ghar%20Jaisa%20Khana!%20I%20want%20to%20subscribe%20for%20the%20weekly%20dinner%20plan.%20Please%20share%20details." class="btn btn-primary">Subscribe via WhatsApp 📱</a>
-                <a href="index.html" class="btn btn-outline">View Meal Details</a>
+            <div class="cta-buttons" style="margin-top: 36px;">
+                <button onclick="openMenuModal()" class="btn btn-primary" id="mainSubscribeBtn">Subscribe Selected Plan via WhatsApp 📱</button>
+                <a href="index.html" class="btn btn-outline">View Single Thali Details</a>
             </div>
         </section>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Confirm Your Order</h3>
+                <button class="close-btn" onclick="closeMenuModal()">×</button>
+            </div>
+            <form id="orderForm" onsubmit="sendWhatsAppOrder(event)">
+                <input type="hidden" id="selectedPlan" value="Weekly Subscription Plan (₹650)">
+                <div class="form-group">
+                    <label for="planDisplay">Selected Dinner Plan</label>
+                    <input type="text" id="planDisplay" value="Weekly Subscription Plan (₹650)" readonly class="readonly-input">
+                </div>
+                <div class="form-group">
+                    <label for="userName">Your Full Name</label>
+                    <input type="text" id="userName" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-group">
+                    <label for="pgAddress">PG Name / Room Number & Address</label>
+                    <textarea id="pgAddress" placeholder="e.g. Room 302, Stanza Living PG, Kammanahalli, Bangalore" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mealPreference">Dinner Delivery Time</label>
+                    <select id="mealPreference" required>
+                        <option value="Dinner (7:30 PM - 8:30 PM)">Dinner (7:30 PM - 8:30 PM)</option>
+                        <option value="Dinner Early (7:00 PM - 7:30 PM)">Dinner Early (7:00 PM - 7:30 PM)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="width: 100%; border-radius: 12px;">Confirm via WhatsApp 📱</button>
+            </form>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -720,5 +890,53 @@
         <p style="margin-top: 8px;">&#169; 2026 Ghar Jaisa Khana. All rights reserved.</p>
     </footer>
 
+    <script>
+        const WHATSAPP_NUMBER = "918449311016";
+        let currentPlan = "Weekly Subscription Plan (₹650)";
+
+        function selectPlan(element, planName, price) {
+            document.querySelectorAll('.price-chip').forEach(chip => chip.classList.remove('active'));
+            element.classList.add('active');
+            currentPlan = planName;
+            document.getElementById('selectedPlan').value = planName;
+            document.getElementById('planDisplay').value = planName;
+        }
+
+        function openMenuModal() {
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                closeMenuModal();
+            }
+        }
+
+        function sendWhatsAppOrder(event) {
+            event.preventDefault();
+            const plan = document.getElementById('selectedPlan').value;
+            const name = document.getElementById('userName').value;
+            const address = document.getElementById('pgAddress').value;
+            const timePref = document.getElementById('mealPreference').value;
+
+            const replyText = `Hi ${name}, your order for "${plan}" is CONFIRMED for ${timePref}. We will deliver to: ${address}. Please pay via UPI. Thank you!`;
+            const encodedReply = encodeURIComponent(replyText);
+            const quickConfirmLink = `https://wa.me/?text=${encodedReply}`;
+
+            const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to subscribe to a Dinner Plan from the Weekly Menu.\n\n👤 *Name*: ${name}\n📦 *Selected Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\nPlease confirm my subscription and send payment details (UPI). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap to confirm):\n${quickConfirmLink}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+            closeMenuModal();
+            document.getElementById('orderForm').reset();
+        }
+    </script>
 </body>
 </html>
