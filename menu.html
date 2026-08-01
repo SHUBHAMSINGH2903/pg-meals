@@ -823,21 +823,21 @@
             <p>Click on any plan below to select & subscribe</p>
 
             <div class="pricing-strip" id="pricingStrip">
-                <div class="price-chip" onclick="selectPlan(this, 'Single Trial Meal (₹120)', 120)">
+                <div class="price-chip" onclick="selectPlan(this, 'Single Trial Meal (₹150)', 150)">
                     <h4>Single Meal</h4>
-                    <div class="price">&#8377;120<span>/meal</span></div>
+                    <div class="price">&#8377;150<span>/meal</span></div>
                     <button class="chip-btn">Select Plan</button>
                 </div>
-                <div class="price-chip featured active" onclick="selectPlan(this, 'Weekly Subscription Plan (₹650)', 650)">
+                <div class="price-chip featured active" onclick="selectPlan(this, 'Weekly Subscription Plan (₹799)', 799)">
                     <h4>Weekly (6 Days)</h4>
-                    <div class="price">&#8377;650<span>/week</span></div>
-                    <div class="save">Save &#8377;70!</div>
-                    <button class="chip-btn">Select Plan</button>
+                    <div class="price">&#8377;799<span>/week</span></div>
+                    <div class="save">Save &#8377;101!</div>
+                    <button class="chip-btn">✓ Selected Plan</button>
                 </div>
-                <div class="price-chip" onclick="selectPlan(this, 'Monthly Saver Plan (₹2,400)', 2400)">
+                <div class="price-chip" onclick="selectPlan(this, 'Monthly Saver Plan (₹2,999)', 2999)">
                     <h4>Monthly (26 Days)</h4>
-                    <div class="price">&#8377;2,400<span>/mo</span></div>
-                    <div class="save">Save &#8377;720!</div>
+                    <div class="price">&#8377;2,999<span>/mo</span></div>
+                    <div class="save">Save &#8377;901!</div>
                     <button class="chip-btn">Select Plan</button>
                 </div>
             </div>
@@ -857,10 +857,10 @@
                 <button class="close-btn" onclick="closeMenuModal()">×</button>
             </div>
             <form id="orderForm" onsubmit="sendWhatsAppOrder(event)">
-                <input type="hidden" id="selectedPlan" value="Weekly Subscription Plan (₹650)">
+                <input type="hidden" id="selectedPlan" value="Weekly Subscription Plan (₹799)">
                 <div class="form-group">
                     <label for="planDisplay">Selected Dinner Plan</label>
-                    <input type="text" id="planDisplay" value="Weekly Subscription Plan (₹650)" readonly class="readonly-input">
+                    <input type="text" id="planDisplay" value="Weekly Subscription Plan (₹799)" readonly class="readonly-input">
                 </div>
                 <div class="form-group">
                     <label for="userName">Your Full Name</label>
@@ -891,7 +891,7 @@
 
     <script>
         const WHATSAPP_NUMBER = "918449311016";
-        let currentPlan = "Weekly Subscription Plan (₹650)";
+        let currentPlan = "Weekly Subscription Plan (₹799)";
 
         function selectPlan(element, planName, price) {
             document.querySelectorAll('.price-chip').forEach(chip => {
