@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ghar Jaisa Khana — Weekly Dinner Menu for PG Residents. Fresh home-cooked North Indian meals delivered daily.">
+    <title>Weekly Dinner Menu — Ghar Jaisa Khana</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0a09;
+            --card-bg: #1c1917;
+            --card-border: rgba(255,255,255,0.06);
+            --text-1: #fafaf9;
+            --text-2: #a8a29e;
+            --text-3: #78716c;
+            --primary: #ea580c;
+            --primary-light: #fb923c;
+            --primary-glow: rgba(249, 115, 22, 0.12);
+            --gold: #fbbf24;
+            --font: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text-1);
+            line-height: 1.5;
+            padding: 0;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 50px 20px 40px;
+            background: linear-gradient(180deg, rgba(234,88,12,0.08) 0%, transparent 100%);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .brand-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            color: var(--text-2);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .thali-info-strip {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 99px;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            color: var(--text-2);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .thali-info-strip span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .thali-info-strip strong {
+            color: var(--text-1);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 16px 60px;
+        }
+
+        /* Day Card */
+        .day-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            border-color: rgba(249, 115, 22, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .day-card.special {
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.05);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .day-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .day-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-glow);
+            border: 1px solid rgba(249,115,22,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .day-card.special .day-icon {
+            background: rgba(251,191,36,0.12);
+            border-color: rgba(251,191,36,0.25);
+        }
+
+        .day-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .day-tag {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+
+        .day-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: rgba(249,115,22,0.12);
+            color: var(--primary-light);
+            letter-spacing: 0.5px;
+        }
+
+        .day-card.special .day-badge {
+            background: rgba(251,191,36,0.15);
+            color: var(--gold);
+        }
+
+        /* Dishes Grid */
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .dish-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--card-border);
+            transition: background 0.2s ease;
+        }
+
+        .dish-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .dish-item:nth-child(odd) {
+            border-right: 1px solid var(--card-border);
+        }
+
+        .dish-item:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        .dish-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--card-border);
+        }
+
+        .dish-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .dish-info p {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            line-height: 1.4;
+        }
+
+        .dish-type-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Sides Strip */
+        .sides-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 14px 24px;
+            background: rgba(255,255,255,0.015);
+            font-size: 0.85rem;
+            color: var(--text-2);
+        }
+
+        .sides-strip span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 20px;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            color: var(--text-2);
+            margin-bottom: 28px;
+            font-size: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-family: var(--font);
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 99px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(249,115,22,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-1);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Pricing Strip */
+        .pricing-strip {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .price-chip {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px 28px;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .price-chip.featured {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .price-chip h4 {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .price-chip .price {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .price-chip .price span {
+            font-size: 0.9rem;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+
+        .price-chip .save {
+            font-size: 0.75rem;
+            color: #22c55e;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.85rem;
+            color: var(--text-3);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dishes-grid {
+                grid-template-columns: 1fr;
+            }
+            .dish-item:nth-child(odd) {
+                border-right: none;
+            }
+            .dish-item {
+                border-bottom: 1px solid var(--card-border);
+            }
+            .dish-item:last-child {
+                border-bottom: none;
+            }
+            .thali-info-strip {
+                gap: 10px;
+                padding: 10px 16px;
+                font-size: 0.78rem;
+            }
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .sides-strip {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .pricing-strip {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="brand-name">Ghar Jaisa Khana</div>
+        <h1 class="page-title">Weekly Dinner Menu</h1>
+        <p class="page-subtitle">Fresh, home-cooked North Indian dinner delivered to your PG every evening. No MSG, no artificial colors.</p>
+        <div class="thali-info-strip">
+            <span>🍽️ <strong>Every Thali Includes:</strong></span>
+            <span>🍲 2 Sabzis</span>
+            <span>🍚 Jeera Rice</span>
+            <span>🫓 4 Rotis</span>
+            <span>🥗 Salad</span>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- MONDAY -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🟠</div>
+                    <div>
+                        <div class="day-label">Monday</div>
+                        <div class="day-tag">Paneer Day</div>
+                    </div>
+                </div>
+                <div class="day-badge">PANEER SPECIAL</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/matar_paneer.jpg" alt="Matar Paneer" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Matar Paneer</h4>
+                        <p>Soft paneer cubes with fresh green peas in rich tomato gravy</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Mix Veg" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Mix Veg</h4>
+                        <p>Seasonal vegetables cooked in a light masala with fresh spices</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- TUESDAY -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🟤</div>
+                    <div>
+                        <div class="day-label">Tuesday</div>
+                        <div class="day-tag">Mushroom Day</div>
+                    </div>
+                </div>
+                <div class="day-badge">MUSHROOM SPECIAL</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/mushroom_masala.jpg" alt="Mushroom Masala" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Mushroom Masala</h4>
+                        <p>Button mushrooms simmered in spiced onion-tomato gravy</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Mushroom Matar" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Mushroom Matar</h4>
+                        <p>Mushrooms and green peas in a creamy, aromatic curry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- WEDNESDAY -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🟢</div>
+                    <div>
+                        <div class="day-label">Wednesday</div>
+                        <div class="day-tag">Palak Day</div>
+                    </div>
+                </div>
+                <div class="day-badge">HEALTHY GREEN</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/palak_paneer.jpg" alt="Palak Paneer" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Palak Paneer</h4>
+                        <p>Fresh spinach puree with golden paneer cubes and cream drizzle</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Chana Masala" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Chana Masala</h4>
+                        <p>Spiced chickpea curry with tangy tomato and coriander</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- THURSDAY -->
+        <div class="day-card special">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🟡</div>
+                    <div>
+                        <div class="day-label">Thursday</div>
+                        <div class="day-tag">Puri Day!</div>
+                    </div>
+                </div>
+                <div class="day-badge">PURI SPECIAL ✨</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/aloo_puri.jpg" alt="Aloo Tamatar" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Aloo Tamatar Ki Sabzi</h4>
+                        <p>Tangy potato-tomato curry — the perfect puri companion</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Kadi Pakora" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Kadhi Pakora</h4>
+                        <p>Yogurt-based tangy curry with crispy gram flour fritters</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 <strong>4 Golden Puris</strong> (Instead of Roti!)</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- FRIDAY -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🔴</div>
+                    <div>
+                        <div class="day-label">Friday</div>
+                        <div class="day-tag">Rajma Day</div>
+                    </div>
+                </div>
+                <div class="day-badge">PROTEIN PACKED</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/rajma_curry.jpg" alt="Rajma" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Rajma Masala</h4>
+                        <p>Hearty red kidney beans in thick, buttery Punjabi-style gravy</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Jeera Aloo" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Jeera Aloo</h4>
+                        <p>Cumin-tempered crispy potatoes, simple and delicious</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- SATURDAY -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">🟠</div>
+                    <div>
+                        <div class="day-label">Saturday</div>
+                        <div class="day-tag">Chole Day</div>
+                    </div>
+                </div>
+                <div class="day-badge">WEEKEND VIBES</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/chole_masala.jpg" alt="Chole" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Chole Masala</h4>
+                        <p>Spicy Punjabi chickpea curry with a kick of amchur and garam masala</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Baingan Bharta" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Baingan Bharta</h4>
+                        <p>Smoky roasted eggplant mash with onions, tomatoes and green chili</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+            </div>
+        </div>
+
+        <!-- SUNDAY -->
+        <div class="day-card special">
+            <div class="day-header">
+                <div class="day-name">
+                    <div class="day-icon">⭐</div>
+                    <div>
+                        <div class="day-label">Sunday</div>
+                        <div class="day-tag">Sunday Feast!</div>
+                    </div>
+                </div>
+                <div class="day-badge">PREMIUM FEAST ⭐</div>
+            </div>
+            <div class="dishes-grid">
+                <div class="dish-item">
+                    <img src="images/shahi_paneer.jpg" alt="Shahi Paneer" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 1</span>
+                        <h4>Shahi Paneer</h4>
+                        <p>Royal paneer in cashew-cream-saffron gravy, topped with dry fruits</p>
+                    </div>
+                </div>
+                <div class="dish-item">
+                    <img src="images/thali.jpg" alt="Dal Makhani" class="dish-img">
+                    <div class="dish-info">
+                        <span class="dish-type-tag">Sabzi 2</span>
+                        <h4>Dal Makhani</h4>
+                        <p>Slow-cooked black lentils with butter, cream and smoky spices</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sides-strip">
+                <span>🍚 Jeera Rice</span>
+                <span>🫓 4 Butter Rotis</span>
+                <span>🥗 Green Salad</span>
+                <span>🍮 <strong>Free Gulab Jamun!</strong></span>
+            </div>
+        </div>
+
+        <!-- CTA & Pricing -->
+        <section class="cta-section">
+            <h2>Subscribe Now & Never Miss Dinner</h2>
+            <p>Serving: Kammanahalli, Kalyan Nagar, HRBR Layout & Horamavu</p>
+
+            <div class="pricing-strip">
+                <div class="price-chip">
+                    <h4>Single Meal</h4>
+                    <div class="price">&#8377;120<span>/meal</span></div>
+                </div>
+                <div class="price-chip featured">
+                    <h4>Weekly (6 Days)</h4>
+                    <div class="price">&#8377;650<span>/week</span></div>
+                    <div class="save">Save &#8377;70!</div>
+                </div>
+                <div class="price-chip">
+                    <h4>Monthly (26 Days)</h4>
+                    <div class="price">&#8377;2,400<span>/mo</span></div>
+                    <div class="save">Save &#8377;720!</div>
+                </div>
+            </div>
+
+            <div class="cta-buttons" style="margin-top: 32px;">
+                <a href="https://wa.me/918449311016?text=Hi%20Ghar%20Jaisa%20Khana!%20I%20want%20to%20subscribe%20for%20the%20weekly%20dinner%20plan.%20Please%20share%20details." class="btn btn-primary">Subscribe via WhatsApp 📱</a>
+                <a href="index.html" class="btn btn-outline">View Meal Details</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🍳 Ghar Jaisa Khana — Healthy Home Kitchen</p>
+        <p>Serving Kammanahalli, Kalyan Nagar, HRBR Layout & Horamavu, Bangalore</p>
+        <p style="margin-top: 8px;">&#169; 2026 Ghar Jaisa Khana. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
