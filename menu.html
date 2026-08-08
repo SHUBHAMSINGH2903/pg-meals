@@ -394,6 +394,66 @@
             color: white;
         }
 
+        /* Print Styles for Beautiful Physical Menu Flyer */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            body {
+                background: #0c0a09 !important;
+                color: #ffffff !important;
+            }
+
+            .page-header {
+                background: #1c1917 !important;
+                border-bottom: 2px solid #ea580c !important;
+                padding: 30px 15px !important;
+            }
+
+            .day-card {
+                background: #1c1917 !important;
+                border: 2px solid #332d29 !important;
+                break-inside: avoid;
+                margin-bottom: 20px !important;
+                box-shadow: none !important;
+            }
+
+            .day-card.special {
+                border: 2px solid #fbbf24 !important;
+                background: #26221f !important;
+            }
+
+            .day-header {
+                background: rgba(255,255,255,0.03) !important;
+                border-bottom: 1px solid #332d29 !important;
+            }
+
+            .dish-item {
+                border-bottom: 1px solid #332d29 !important;
+            }
+
+            .sides-strip {
+                background: rgba(234, 88, 12, 0.1) !important;
+                color: #fb923c !important;
+            }
+
+            .price-chip {
+                background: #1c1917 !important;
+                border: 2px solid #ea580c !important;
+            }
+
+            .chip-btn, .modal-overlay, .cta-buttons .btn-primary {
+                display: none !important;
+            }
+
+            .cta-section h2 {
+                color: #ea580c !important;
+            }
+        }
+
         /* Modal Overlay */
         .modal-overlay {
             position: fixed;
