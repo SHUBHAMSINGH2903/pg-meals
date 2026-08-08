@@ -35,17 +35,22 @@ function sendWhatsAppOrder(event) {
     const name = document.getElementById('userName').value;
     const address = document.getElementById('pgAddress').value;
     const timePref = document.getElementById('mealPreference').value;
+    const userPhone = prompt("कृपया अपना WhatsApp नंबर दर्ज करें (Instant Order Confirmation के लिए):", "");
 
-    // 1. Create a confirmation template text that the client sends to you (the owner)
-    // 2. We embed an auto-generated confirmation link inside the message.
-    // When the owner receives it, they can tap the link to quickly draft the "CONFIRMED" response back to the client!
-    
-    // Construct the confirmation message link (this will draft a message from Owner back to Client)
+    // 1. Trigger Webhook to Central Database (Auto Add Subscriber)
+    const masterApi = localStorage.getItem('googleSheetApiUrl') || "";
+    if (masterApi) {
+        fetch(`${masterApi}?action=new_subscriber&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(userPhone || '')}&address=${encodeURIComponent(address)}&plan=${encodeURIComponent(plan)}`, { mode: 'no-cors' });
+    }
+
+    // 2. Smart YES Tap Link Generator for Customer
+    const yesTapLink = `https://wa.me/${WHATSAPP_NUMBER}?text=YES_${encodeURIComponent(name.trim().replace(/\s+/g, '_'))}`;
+
     const replyText = `Hi ${name}, your order for "${plan}" is CONFIRMED for ${timePref}. We will deliver to: ${address}. Please pay via UPI. Thank you!`;
     const encodedReply = encodeURIComponent(replyText);
     const quickConfirmLink = `https://wa.me/?text=${encodedReply}`;
 
-    const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to place an order from the PG Meal Catalog.\n\n👤 *Name*: ${name}\n📦 *Meal Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\nPlease confirm my order and send payment details (UPI/Cash). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap link to auto-draft confirmation to this customer):\n${quickConfirmLink}`;
+    const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to place an order / subscribe.\n\n👤 *Name*: ${name}\n📦 *Meal Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\n👉 *Your Daily 1-Tap YES Link* (Daily Dinner Confirmation):\n${yesTapLink}\n\nPlease confirm my subscription and send payment details (UPI/Cash). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap to auto-draft confirmation):\n${quickConfirmLink}`;
 
     // Encode message for URL
     const encodedMessage = encodeURIComponent(message);

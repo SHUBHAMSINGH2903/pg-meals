@@ -932,11 +932,20 @@
             const address = document.getElementById('pgAddress').value;
             const timePref = document.getElementById('mealPreference').value;
 
-            const replyText = `Hi ${name}, your order for "${plan}" is CONFIRMED for ${timePref}. We will deliver to: ${address}. Please pay via UPI. Thank you!`;
+            // 1. Trigger Webhook to Central Database (Auto Add Subscriber)
+            const masterApi = localStorage.getItem('googleSheetApiUrl') || "";
+            if (masterApi) {
+                fetch(`${masterApi}?action=new_subscriber&name=${encodeURIComponent(name)}&phone=&address=${encodeURIComponent(address)}&plan=${encodeURIComponent(plan)}`, { mode: 'no-cors' });
+            }
+
+            // 2. Smart YES Tap Link Generator for Customer
+            const yesTapLink = `https://wa.me/${WHATSAPP_NUMBER}?text=YES_${encodeURIComponent(name.trim().replace(/\s+/g, '_'))}`;
+
+            const replyText = `Hi ${name}, your subscription for "${plan}" is CONFIRMED for ${timePref}. We will deliver to: ${address}. Please pay via UPI. Thank you!`;
             const encodedReply = encodeURIComponent(replyText);
             const quickConfirmLink = `https://wa.me/?text=${encodedReply}`;
 
-            const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to subscribe to a Dinner Plan from the Weekly Menu.\n\n👤 *Name*: ${name}\n📦 *Selected Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\nPlease confirm my subscription and send payment details (UPI). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap to confirm):\n${quickConfirmLink}`;
+            const message = `Hello Ghar Jaisa Khana! 🍳\n\nI want to subscribe to a Dinner Plan from the Weekly Menu.\n\n👤 *Name*: ${name}\n📦 *Selected Plan*: ${plan}\n🏠 *PG Delivery Address*: ${address}\n⏰ *Time Preference*: ${timePref}\n\n👉 *Your Daily 1-Tap YES Link* (Daily Dinner Confirmation):\n${yesTapLink}\n\nPlease confirm my subscription and send payment details (UPI). Thanks!\n\n------------------------\n👉 *Owner Reply Helper* (Tap to confirm):\n${quickConfirmLink}`;
 
             const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
